@@ -1,14 +1,37 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 //重复点击路由，报错问题解决
-const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch(err => err)
-}
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push(location) {
+//   return originalPush.call(this, location).catch(err => err)
+// }
 
+//重复点击路由，报错问题解决
+const originPush = VueRouter.prototype.push;
+/**
+ * push | replace 返回值是一个promise对象
+ * @param {路由跳转地址} location 
+ * @param {成功回调} resolve 
+ * @param {失败回调} reject 
+ */
+VueRouter.prototype.push = function (location, resolve, reject) {
+  if (resolve && reject) {
+    originPush.call(this, location,resolve,reject)
+  } else {
+    originPush.call(this, location,()=>{},()=>{})
+  }
+}
+const originReplace = VueRouter.prototype.push;
+VueRouter.prototype.replace = function (location, resolve, reject) {
+  if (resolve && reject) {
+    originReplace.call(this, location,resolve,reject)
+  } else {
+    originReplace.call(this, location,()=>{},()=>{})
+  }
+}
 
 const routes = [
   {

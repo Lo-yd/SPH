@@ -50,7 +50,7 @@
     },
     methods: {
       goSearch() {
-        this.$router.push({
+        const psu = this.$router.push({
           name: 'search',
           // params: {
           //   keyword: this.keyword,
