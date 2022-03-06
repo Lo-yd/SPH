@@ -64,7 +64,7 @@ const routes = [
   },
   {
     name: 'search',
-    path: '/search/:keyword',
+    path: '/search/:keyword?',
     component: () => import('@/views/Search'),
     meta: {
       show: true
@@ -72,7 +72,7 @@ const routes = [
   },
 ]
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 });

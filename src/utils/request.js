@@ -1,5 +1,8 @@
-import axios from 'axios'
-// import { config } from 'vue/types/umd';
+//axios二次封装
+import axios from 'axios';
+//引入进度条
+import nprogress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 // 创建axios实例
 const service = axios.create({
@@ -16,6 +19,8 @@ service.interceptors.request.use(
     //在发送请求前进行一些操作
     // 设置请求头等操作
     
+    //进度条
+    nprogress.start();
     return config;
   },
   error => {
@@ -29,6 +34,9 @@ service.interceptors.response.use(
   response => {
     const res = response.data;
     //do something
+
+    //进度条
+    nprogress.done();
     return res;
   },
 
