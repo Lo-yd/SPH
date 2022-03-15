@@ -22,8 +22,8 @@ const mutations = {
   GETCATEGORYLIST(state, value){
     state.categroyList = value.slice(0,16)
   },
-  REQGETBANNERLIST(state, value){
-    state.bannerList = value;
+  REQGETBANNERLIST(state, bannerList){
+    state.bannerList = bannerList;
   }
 }
 const state = {

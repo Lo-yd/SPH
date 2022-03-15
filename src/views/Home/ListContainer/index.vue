@@ -2,31 +2,17 @@
   <!--列表-->
   <div class="list-container">
     <div class="sortList clearfix">
-      <div class="center">
+      <div class="center block">
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
-          <div class="swiper-wrapper">
+        <el-carousel class="swiper-container" id="mySwiper" trigger="click" height="464px">
+          <el-carousel-item class="swiper-wrapper" v-for="carousel in bannerList" :key="carousel.id">
             <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+              <img :src="carousel.imgUrl" />
             </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
-          </div>
-          <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
-
-          <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+          </el-carousel-item>
+        </el-carousel>
       </div>
+
       <div class="right">
         <div class="news">
           <h4>
@@ -111,22 +97,33 @@
 </template>
 
 <script>
+  import {
+    mapState
+  } from 'vuex'
+
   export default {
     name: "ListContainer",
-    data(){
+
+    data() {
       return {
 
       }
     },
-    mounted(){
+    mounted() {
       // 派发Action，通过Vuex发ajax请求，存储数据到仓库
       this.$store.dispatch('getBannerList')
+    },
+    computed: {
+      // 从仓库拿到轮播图数据
+      ...mapState({
+        bannerList: state => state.home.bannerList
+      })
     }
   }
 </script>
 
-<style lang="less" >
-.list-container {
+<style lang="less">
+  .list-container {
     width: 1200px;
     margin: 0 auto;
 
