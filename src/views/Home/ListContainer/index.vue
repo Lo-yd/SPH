@@ -112,7 +112,16 @@
 
 <script>
   export default {
-    name: "ListContainer"
+    name: "ListContainer",
+    data(){
+      return {
+
+      }
+    },
+    mounted(){
+      // 派发Action，通过Vuex发ajax请求，存储数据到仓库
+      this.$store.dispatch('getBannerList')
+    }
   }
 </script>
 
