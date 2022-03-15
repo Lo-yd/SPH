@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h2>
-      params参数-------------{{$route.params.keyword}}
-      
-    </h2>
-    <h2>query参数-------------{{$route.query.k}}</h2>
+    <TypeNav />
   </div>
 </template>
 

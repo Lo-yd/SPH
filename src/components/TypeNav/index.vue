@@ -1,8 +1,10 @@
 <template>
   <!-- 商品分类导航 -->
   <div class="type-nav">
-    <div class="container">
-      <h2 class="all">全部商品分类</h2>
+    <div class="container" @mouseleave="leaveIndex">
+      <h2 class="all" 
+      @mouseenter="enterShow" 
+      >全部商品分类</h2>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,26 +15,36 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
+      <div class="sort" v-show="isShow">
         <div class="all-sort-list2" @click="goSearch">
           <div class="item" v-for="(c1, index) in categroyList" :key="c1.categoryId">
             <!-- 一级分类 -->
             <h3 @mouseenter="changeIndex(index)">
-              <a :data-categoryName="c1.categoryName" :data-categroy1Id="c1.categoryId" href="javascript:;">
-                {{c1.categoryName}}</a>
+              <a 
+              :data-categoryName="c1.categoryName" 
+              :data-categroy1Id="c1.categoryId" 
+              href="javascript:;"
+              >
+              {{c1.categoryName}}</a>
             </h3>
-            <!-- 二级分类 -->
+            <!-- 二、三级分类 -->
             <div class="item-list clearfix" :style="{display: currentIndex === index ? 'block':'none'}">
               <div class="subitem" v-for="c2 in c1.categoryChild" :key="c2.categoryId">
                 <dl class="fore">
                   <dt>
-                    <a :data-categoryName="c2.categoryName" :data-categroy2Id="c2.categoryId"
-                      href="javascript:;">{{c2.categoryName}}</a>
+                    <a 
+                    :data-categoryName="c2.categoryName" 
+                    :data-categroy2Id="c2.categoryId"
+                    href="javascript:;"
+                    >{{c2.categoryName}}</a>
                   </dt>
                   <dd>
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
-                      <a :data-categoryName="c3.categoryName" :data-categroy3Id="c3.categoryId"
-                        href="javascript:;">{{c3.categoryName}}</a>
+                      <a 
+                      :data-categoryName="c3.categoryName" 
+                      :data-categroy3Id="c3.categoryId"
+                      href="javascript:;"
+                      >{{c3.categoryName}}</a>
                     </em>
                   </dd>
                 </dl>
@@ -46,15 +58,20 @@
 </template>
 
 <script>
-  import { mapState } from "vuex"
+  import {
+    mapState
+  } from "vuex"
   //引入lodash 防抖
-  import { throttle } from "lodash"
+  import {
+    throttle
+  } from "lodash"
 
   export default {
     name: 'TypeNav',
     data() {
       return {
         currentIndex: -1,
+        isShow: true
       }
     },
     methods: {
@@ -62,6 +79,17 @@
       changeIndex: throttle(function (index) {
         this.currentIndex = index
       }, 50),
+      // 鼠标移出
+      leaveIndex() {
+        this.currentIndex = -1
+        if (this.$route.path != '/home') {
+          this.isShow = false
+        }
+      },
+      //鼠标进入
+      enterShow(){
+        this.isShow = true
+      },
       // 菜单跳转
       goSearch(event) {
         //拿到点击的节点信息
@@ -71,6 +99,7 @@
           categroy2id,
           categroy3id
         } = event.target.dataset;
+
         if (categoryname) {
           let location = {
             name: "search"
@@ -78,6 +107,7 @@
           let query = {
             categoryName: categoryname
           }
+          
           if (categroy1id) {
             query.categroy1Id = categroy1id
           } else if (categroy2id) {
@@ -89,10 +119,14 @@
           // console.log(location)
           this.$router.push(location);
         }
-      }
+      },
+      
     },
     mounted() {
-      this.$store.dispatch("getCategoryList");
+      //只有home下菜单才显示
+      if (this.$route.path != '/home') {
+        this.isShow = false
+      }
     },
     computed: {
       ...mapState({
