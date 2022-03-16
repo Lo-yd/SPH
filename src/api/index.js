@@ -14,4 +14,9 @@ export const getCategoryList = () => {
 //     method: 'get'
 //   })
 // }
+ 
+//获取轮播图数据
 export const reqGetBannerList = () => mockService.get('/banner')
+
+//获取floor数据
+export const reqGetFloorList = () => mockService.get('/floor')
