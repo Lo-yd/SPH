@@ -60,9 +60,9 @@
           params: {
             keyword: this.keyword,
           },
-          query: {
-            k: this.keyword,
-          }
+          // query: {
+          //   k: this.keyword,
+          // }
         })
       }
     }

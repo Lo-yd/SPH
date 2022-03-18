@@ -17,12 +17,12 @@
       </nav>
       <div class="sort" v-show="isShow">
         <div class="all-sort-list2" @click="goSearch">
-          <div class="item" v-for="(c1, index) in categroyList" :key="c1.categoryId">
+          <div class="item" v-for="(c1, index) in categoryList" :key="c1.categoryId">
             <!-- 一级分类 -->
             <h3 @mouseenter="changeIndex(index)">
               <a 
               :data-categoryName="c1.categoryName" 
-              :data-categroy1Id="c1.categoryId" 
+              :data-category1Id="c1.categoryId" 
               href="javascript:;"
               >
               {{c1.categoryName}}</a>
@@ -34,7 +34,7 @@
                   <dt>
                     <a 
                     :data-categoryName="c2.categoryName" 
-                    :data-categroy2Id="c2.categoryId"
+                    :data-category2Id="c2.categoryId"
                     href="javascript:;"
                     >{{c2.categoryName}}</a>
                   </dt>
@@ -42,7 +42,7 @@
                     <em v-for="c3 in c2.categoryChild" :key="c3.categoryId">
                       <a 
                       :data-categoryName="c3.categoryName" 
-                      :data-categroy3Id="c3.categoryId"
+                      :data-category3Id="c3.categoryId"
                       href="javascript:;"
                       >{{c3.categoryName}}</a>
                     </em>
@@ -95,9 +95,9 @@
         //拿到点击的节点信息
         let {
           categoryname,
-          categroy1id,
-          categroy2id,
-          categroy3id
+          category1id,
+          category2id,
+          category3id
         } = event.target.dataset;
 
         if (categoryname) {
@@ -108,12 +108,12 @@
             categoryName: categoryname
           }
           
-          if (categroy1id) {
-            query.categroy1Id = categroy1id
-          } else if (categroy2id) {
-            query.categroy2Id = categroy2id
+          if (category1id) {
+            query.category1Id = category1id
+          } else if (category2id) {
+            query.category2Id = category2id
           } else {
-            query.categroy3Id = categroy3id
+            query.category3Id = category3id
           }
           location.query = query;
           // console.log(location)
@@ -130,7 +130,7 @@
     },
     computed: {
       ...mapState({
-        categroyList: state => state.home.categroyList
+        categoryList: state => state.home.categoryList
       })
     }
   }

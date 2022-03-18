@@ -27,7 +27,7 @@ export default {
   },
   mutations: {
     GETCATEGORYLIST(state, value) {
-      state.categroyList = value.slice(0, 16)
+      state.categoryList = value.slice(0, 16)
     },
     GETBANNERLIST(state, bannerList) {
       state.bannerList = bannerList;
@@ -37,7 +37,7 @@ export default {
     }
   },
   state: {
-    categroyList: [],
+    categoryList: [],
     bannerList: [],
     floorList: []
   },
