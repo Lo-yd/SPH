@@ -7,7 +7,7 @@ import 'nprogress/nprogress.css';
 // 创建axios实例
 const service = axios.create({
   //基础路径
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: '/api',
   // 超时时间
   timeout: 5000
 })

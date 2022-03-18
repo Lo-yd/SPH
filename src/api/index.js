@@ -2,6 +2,8 @@ import service from "@/utils/request";
 import mockService from '@/utils/mockRequest';
 
 // api管理
+
+//获取home的菜单分类数据
 export const getCategoryList = () => {
   return service({
     url: '/product/getBaseCategoryList',
