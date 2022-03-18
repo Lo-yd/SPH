@@ -102,7 +102,7 @@
 
         if (categoryname) {
           let location = {
-            name: "search"
+            name: "Search"
           }
           let query = {
             categoryName: categoryname

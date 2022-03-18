@@ -54,14 +54,15 @@
     },
     methods: {
       goSearch() {
+        //加个参数为空就不跳转
         const psu = this.$router.push({
-          name: 'search',
+          name: 'Search',
           params: {
             keyword: this.keyword,
           },
-          // query: {
-          //   k: this.keyword,
-          // }
+          query: {
+            k: this.keyword,
+          }
         })
       }
     }

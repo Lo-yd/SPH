@@ -39,7 +39,7 @@ const routes = [
     redirect: 'home'
   },
   {
-    name: 'home',
+    name: 'Home',
     path: '/home',
     component: () => import('@/views/Home'),
     meta: {
@@ -47,7 +47,7 @@ const routes = [
     }
   },
   {
-    name: 'login',
+    name: 'Login',
     path: '/login',
     component: () => import('@/views/Login'),
     meta: {
@@ -55,7 +55,7 @@ const routes = [
     }
   },
   {
-    name: 'register',
+    name: 'Register',
     path: '/register',
     component: () => import('@/views/Register'),
     meta: {
@@ -63,7 +63,7 @@ const routes = [
     }
   },
   {
-    name: 'search',
+    name: 'Search',
     path: '/search/:keyword?',
     component: () => import('@/views/Search'),
     meta: {
