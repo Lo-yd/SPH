@@ -41,24 +41,16 @@
           <!-- 小的导航 -->
           <div class="sui-navbar">
             <div class="navbar-inner filter">
-              <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+              <ul class="sui-nav" @click="changeOrder">
+                <li :class="{active: isOne}">
+                  <a>综合
+                    <span v-show="isOne">{{isDesc}}</span>
+                  </a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{active: !isOne}">
+                  <a>价格
+                    <span v-show="!isOne">{{isDesc}}</span>
+                  </a>
                 </li>
               </ul>
             </div>
@@ -146,7 +138,7 @@
           category3Id: "",
           categoryName: "",
           keyword: "",
-          order: "",
+          order: "1:desc",
           pageNo: 1,
           pageSize: 10,
           props: [],
@@ -169,7 +161,13 @@
       // 2、...mapGetters('search',['goodsList'])
       ...mapGetters({
         goodsList: 'search/goodsList'
-      })
+      }),
+      isOne(){
+        return this.searcParams.order.includes('1');
+      },
+      isDesc(){
+        return this.searcParams.order.includes("desc")?'↓':'↑';
+      }
     },
     methods: {
       getData() {
@@ -210,6 +208,9 @@
         //数组去重
         this.searcParams.props = Array.from(new Set(this.searcParams.props))
         this.getData();
+      },
+      changeOrder(){
+
       }
 
     },
