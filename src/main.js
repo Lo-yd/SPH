@@ -23,5 +23,9 @@ Vue.component(TypeNav.name, TypeNav)
 new Vue({
   router,
   store,
+  beforeCreate () {
+    //全局事件总线
+  Vue.prototype.$bus = this
+  },
   render: h => h(App),
 }).$mount('#app')

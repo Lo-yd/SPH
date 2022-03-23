@@ -4,7 +4,11 @@
       <div class="fl key brand">品牌</div>
       <div class="value logos">
         <ul class="logo-list">
-          <li v-for="trademark in trademarkList" :key="trademark.tmId">{{trademark.tmName}}</li>
+          <li 
+            v-for="trademark in trademarkList" 
+            :key="trademark.tmId"
+            @click="tradeMarkHandler(trademark)"
+          >{{trademark.tmName}}</li>
         </ul>
       </div>
       <div class="ext">
@@ -16,8 +20,8 @@
       <div class="fl key">{{attr.attrName}}</div>
       <div class="fl value">
         <ul class="type-list">
-          <li v-for="(item, index) in attr.attrValueList" :key="index">
-            <a>{{item}}</a>
+          <li v-for="(attrValue, index) in attr.attrValueList" :key="index" @click="attrInfo(attr,attrValue)">
+            <a>{{attrValue}}</a>
           </li>
         </ul>
       </div>
@@ -36,6 +40,17 @@ import { mapGetters } from 'vuex'
         attrsList: 'search/attrsList'
       })
     },
+    methods: {
+      //修改品牌 自定义事件 向父组件传参
+      tradeMarkHandler(trademark){
+        this.$emit("tradeMarkHandler",trademark)
+      },
+      //属性 传参
+      attrInfo(attrInfo, attrValue){
+        this.$emit("getAttrInfo",attrInfo,attrValue);
+      }
+
+    }
   }
 </script>
 

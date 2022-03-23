@@ -11,15 +11,30 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" 
+              v-if="searcParams.categoryName"
+            >{{searcParams.categoryName}}<i @click="removeCategoryName">×</i></li>
+
+            <li class="with-x" 
+              v-if="searcParams.keyword"
+            >{{searcParams.keyword}}<i @click="removeKeyword">×</i></li>
+
+            <li class="with-x" 
+              v-if="searcParams.trademark"
+            >{{searcParams.trademark.slice(2)}}<i @click="removeTrademark">×</i></li>
+
+            <li class="with-x" 
+              v-for="(arrtVule,index) in searcParams.props" :key="index"
+            >{{arrtVule.split(":")[1]}}<i @click="removeAttr(index)" >×</i></li>
+
           </ul>
         </div>
 
         <!--selector-->
-        <SearchSelector />
+        <SearchSelector 
+          @tradeMarkHandler="tradeMarkHandler"
+          @getAttrInfo="getAttrInfo"  
+        />
 
         <!--details-->
         <div class="details clearfix">
@@ -52,7 +67,7 @@
           <div class="goods-list">
             <ul class="yui3-g">
 
-              <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.is">
+              <li class="yui3-u-1-5" v-for="good in goodsList" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
                     <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
@@ -160,7 +175,43 @@
       getData() {
         //search开启了命名空间
         this.$store.dispatch('search/getSearchInfo', this.searcParams);
+      },
+      //删除面包屑导航
+      removeCategoryName(){
+        this.searcParams.categoryName = undefined
+        this.searcParams.category1Id = undefined
+        this.searcParams.category2Id = undefined
+        this.searcParams.category3Id = undefined
+        //删除url的参数
+        this.$router.push({name:"Search"});
+      },
+      removeKeyword(){
+        this.searcParams.keyword = '';
+        this.$bus.$emit("clearKeyword");
+      },
+      removeTrademark(){
+        this.searcParams.trademark = undefined;
+        this.getData();
+      },
+      removeAttr(index){
+        this.searcParams.props.splice(index,1);
+        this.getData();
+      },
+
+      //自定义回调事件接受 SearchSelector 子组件中的的数据，参数是品牌id和品牌named一个对象
+      tradeMarkHandler(tradeMark){
+        this.searcParams.trademark = `${tradeMark.tmId}:${tradeMark.tmName}`;
+        this.getData();
+      },
+      //自定义回调事件接受 SearchSelector 子组件中的的数据
+      getAttrInfo(attrInfo,attrValue){
+        let props = `${attrInfo.attrId}:${attrValue}:${attrInfo.attrName}`;
+        this.searcParams.props.push(props);
+        //数组去重
+        this.searcParams.props = Array.from(new Set(this.searcParams.props))
+        this.getData();
       }
+
     },
     watch: {
       $route(newValue, oldValue){

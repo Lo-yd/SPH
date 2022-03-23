@@ -33,11 +33,7 @@
       <div class="searchArea">
         <form action="###" class="searchForm">
           <input type="text" id="autocomplete" class="input-error input-xxlarge" v-model="keyword" />
-          <button 
-          class="sui-btn btn-xlarge btn-danger" 
-          type="button" 
-          @click="goSearch"
-          >搜索</button>
+          <button class="sui-btn btn-xlarge btn-danger" type="button" @click="goSearch">搜索</button>
         </form>
       </div>
     </div>
@@ -64,8 +60,15 @@
           //   k: this.keyword,
           // }
         })
-      }
+      },
+    },
+    mounted() {
+      // /接受search组件清除关键字
+      this.$bus.$on("clearKeyword", ()=>{
+        this.keyword = '';
+      });
     }
+
   }
 </script>
 
