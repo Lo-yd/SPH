@@ -210,7 +210,8 @@
         this.getData();
       },
       changeOrder(){
-
+        let orderInfo = this.searcParams.order.split(":");
+        if (orderInfo[0] == 1) {}
       }
 
     },
