@@ -9,7 +9,7 @@ const coms = [
 ]
 
 export default {
-  install(Vue, options) {
+  install (Vue, options) {
     coms.map(c => {
       Vue.component(c.name, c)
     })

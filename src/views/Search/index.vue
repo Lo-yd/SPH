@@ -45,14 +45,14 @@
           <!-- 小的导航 -->
           <div class="sui-navbar">
             <div class="navbar-inner filter">
-              <ul class="sui-nav" @click="changeOrder">
-                <li :class="{ active: isOne }">
+              <ul class="sui-nav">
+                <li :class="{ active: isOne }" @click="changeOrder('1')">
                   <a
                     >综合
                     <span v-show="isOne">{{ isDesc }}</span>
                   </a>
                 </li>
-                <li :class="{ active: !isOne }">
+                <li :class="{ active: !isOne }" @click="changeOrder('2')">
                   <a
                     >价格
                     <span v-show="!isOne">{{ isDesc }}</span>
@@ -220,9 +220,19 @@ export default {
       this.searcParams.props = Array.from(new Set(this.searcParams.props))
       this.getData()
     },
-    changeOrder () {
-      let orderInfo = this.searcParams.order.split(":")
-      if (orderInfo[0] == 1) { }
+    //排序
+    changeOrder (flag) {
+      let originFlag = this.searcParams.order.split(":")[0]
+      let originSort = this.searcParams.order.split(":")[1]
+      let newOrder = ''
+      if (flag === originFlag) {
+        newOrder = `${flag}:${originSort === 'desc' ? 'asc' : 'desc'}`
+      } else {
+        newOrder = `${flag}:${originSort = 'desc'}`
+      }
+      this.searcParams.order = newOrder
+      this.getData()
+
     }
 
   },

@@ -6,9 +6,10 @@ import store from '@/store'
 import "@/mock/mockServe"
 
 // element按需引入封装
-import element from '@/components/element'
+import element from '@/element'
 // 使用
 Vue.use(element)
+
 //全局组件TypeNav
 import TypeNav from '@/components/TypeNav'
 
@@ -25,7 +26,7 @@ new Vue({
   store,
   beforeCreate () {
     //全局事件总线
-  Vue.prototype.$bus = this
+    Vue.prototype.$bus = this
   },
   render: h => h(App),
 }).$mount('#app')
