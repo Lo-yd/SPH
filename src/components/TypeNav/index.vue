@@ -70,65 +70,65 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from "vuex"
 //引入lodash 防抖
-import { throttle } from "lodash";
+import { throttle } from "lodash"
 
 export default {
   name: "TypeNav",
-  data() {
+  data () {
     return {
       currentIndex: -1,
       isShow: true,
-    };
+    }
   },
   methods: {
     // 防抖 获取标签索引值
     changeIndex: throttle(function (index) {
-      this.currentIndex = index;
+      this.currentIndex = index
     }, 50),
     // 鼠标移出
-    leaveIndex() {
-      this.currentIndex = -1;
+    leaveIndex () {
+      this.currentIndex = -1
       if (this.$route.path != "/home") {
-        this.isShow = false;
+        this.isShow = false
       }
     },
     //鼠标进入
-    enterShow() {
-      this.isShow = true;
+    enterShow () {
+      this.isShow = true
     },
     // 菜单跳转
-    goSearch(event) {
+    goSearch (event) {
       //拿到点击的节点信息
       let { categoryname, category1id, category2id, category3id } =
-        event.target.dataset;
+        event.target.dataset
 
       if (categoryname) {
         let location = {
           name: "Search",
-        };
+        }
         let query = {
           categoryName: categoryname,
-        };
+        }
 
         if (category1id) {
-          query.category1Id = category1id;
+          query.category1Id = category1id
         } else if (category2id) {
-          query.category2Id = category2id;
+          query.category2Id = category2id
         } else {
-          query.category3Id = category3id;
+          query.category3Id = category3id
         }
-        location.query = query;
+        location.query = query
         // console.log(location)
-        this.$router.push(location);
+        this.$router.push(location)
       }
     },
   },
-  mounted() {
+  mounted () {
     //只有home下菜单才显示
     if (this.$route.path != "/home") {
-      this.isShow = false;
+      this.isShow = false
     }
   },
   computed: {
