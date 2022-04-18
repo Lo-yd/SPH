@@ -10,12 +10,14 @@ import element from '@/element'
 // 使用
 Vue.use(element)
 
-//全局组件TypeNav
+//全局组件
 import TypeNav from '@/components/TypeNav'
-
-Vue.config.productionTip = false
+import Pagination from './components/Pagination'
 //全局组件注册
 Vue.component(TypeNav.name, TypeNav)
+Vue.component(Pagination.name, Pagination)
+
+Vue.config.productionTip = false
 
 // import { getCategoryList } from "@/api"
 
