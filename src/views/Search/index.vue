@@ -101,7 +101,16 @@
             </ul>
           </div>
           <!-- 分页 -->
-          <Pagination :pageNo="9" :pageSize="3" :total="91" :continues="5" />
+          <!-- {{ searchInfo.pageNo }}
+          {{ searchInfo.pageSize }}
+          {{ searchInfo.total }} -->
+          <Pagination
+            :pageNo="searcParams.pageNo"
+            :pageSize="searcParams.pageSize"
+            :total="searchInfo.total"
+            :continues="5"
+            @getPageNo="getPageNo"
+          />
         </div>
       </div>
     </div>
@@ -110,7 +119,7 @@
 
 <script>
 import SearchSelector from './SearchSelector/SearchSelector'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   name: 'Search',
   data () {
@@ -122,8 +131,8 @@ export default {
         categoryName: "",
         keyword: "",
         order: "1:desc",
-        pageNo: 1,
-        pageSize: 10,
+        pageNo: 6,
+        pageSize: 5,
         props: [],
         trademark: ""
       }
@@ -150,7 +159,10 @@ export default {
     },
     isDesc () {
       return this.searcParams.order.includes("desc") ? '↓' : '↑'
-    }
+    },
+    ...mapState({
+      searchInfo: state => state.search.searchInfo
+    })
   },
   methods: {
     getData () {
@@ -205,7 +217,13 @@ export default {
       this.searcParams.order = newOrder
       this.getData()
 
+    },
+    //回调，获取分液器组件传来的点击的第几页，并整理参数重新发请求
+    getPageNo (pageNo) {
+      this.searcParams.pageNo = pageNo
+      this.getData()
     }
+
 
   },
   watch: {

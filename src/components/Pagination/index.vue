@@ -1,14 +1,34 @@
 <template>
   <div class="pagination">
-    <button>上一页</button>
-    <button>1</button>
-    <button>···</button>
-    <button v-for="(page, index) in startAndEnd" :key="index">
+    <button v-show="pageNo != 1" @click="$emit('getPageNo', pageNo - 1)">
+      上一页
+    </button>
+    <button v-show="startNumAndEedNum.start > 1" @click="$emit('getPageNo', 1)">
+      1
+    </button>
+    <button v-show="startNumAndEedNum.start > 2">···</button>
+
+    <button
+      v-for="(page, index) in startAndEnd"
+      :key="index"
+      @click="$emit('getPageNo', page)"
+    >
       {{ page }}
     </button>
-    <button>···</button>
-    <button>{{ totalPage }}</button>
-    <button>下一页</button>
+
+    <button v-show="startNumAndEedNum.end < totalPage - 1">···</button>
+    <button
+      v-show="startNumAndEedNum.end < totalPage"
+      @click="$emit('getPageNo', totalPage)"
+    >
+      {{ totalPage }}
+    </button>
+    <button
+      v-show="pageNo != totalPage"
+      @click="$emit('getPageNo', pageNo + 1)"
+    >
+      下一页
+    </button>
     <button style="margin-left: 30px">共 {{ total }} 条</button>
   </div>
 </template>
@@ -17,9 +37,12 @@
 export default {
   name: "Pagination",
   props: ['pageNo', 'pageSize', 'total', 'continues'],
+  methods: {
+  },
   computed: {
     //总页数
     totalPage () {
+      // 向上取整
       return Math.ceil(this.total / this.pageSize)
     },
     //计算出起始页码的数
@@ -42,14 +65,15 @@ export default {
       }
       return { start, end }
     },
-    //页码 continues 基数
+    //页码 continues 连续的页码
     startAndEnd () {
       let arr = []
       for (let i = this.startNumAndEedNum.start; i <= this.startNumAndEedNum.end; i++) {
         arr.push(i)
       }
       return arr
-    }
+    },
+
   }
 }
 </script>
