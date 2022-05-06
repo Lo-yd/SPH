@@ -1,16 +1,9 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
-
+Vue.use(VueRouter)
 //重复点击路由，报错问题解决
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
-
-//重复点击路由，报错问题解决
-const originPush = VueRouter.prototype.push;
+const originPush = VueRouter.prototype.push
 /**
  * push | replace 返回值是一个promise对象
  * @param {路由跳转地址} location 
@@ -19,17 +12,17 @@ const originPush = VueRouter.prototype.push;
  */
 VueRouter.prototype.push = function (location, resolve, reject) {
   if (resolve && reject) {
-    originPush.call(this, location,resolve,reject)
+    originPush.call(this, location, resolve, reject)
   } else {
-    originPush.call(this, location,()=>{},()=>{})
+    originPush.call(this, location, () => { }, () => { })
   }
 }
-const originReplace = VueRouter.prototype.push;
+const originReplace = VueRouter.prototype.push
 VueRouter.prototype.replace = function (location, resolve, reject) {
   if (resolve && reject) {
-    originReplace.call(this, location,resolve,reject)
+    originReplace.call(this, location, resolve, reject)
   } else {
-    originReplace.call(this, location,()=>{},()=>{})
+    originReplace.call(this, location, () => { }, () => { })
   }
 }
 
@@ -70,10 +63,18 @@ const routes = [
       show: true
     }
   },
+  {
+    name: 'Detail',
+    path: '/detail/:skuid',
+    component: () => import('@/views/Detail'),
+    meta: {
+      show: true
+    }
+  },
 ]
 const router = new VueRouter({
   // mode: 'history',
   base: process.env.BASE_URL,
   routes
-});
+})
 export default router
