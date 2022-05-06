@@ -131,7 +131,7 @@ export default {
         categoryName: "",
         keyword: "",
         order: "1:desc",
-        pageNo: 6,
+        pageNo: 1,
         pageSize: 5,
         props: [],
         trademark: ""

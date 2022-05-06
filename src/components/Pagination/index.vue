@@ -1,9 +1,14 @@
 <template>
   <div class="pagination">
-    <button v-show="pageNo != 1" @click="$emit('getPageNo', pageNo - 1)">
+    <button :disabled="pageNo == 1" @click="$emit('getPageNo', pageNo - 1)">
       上一页
     </button>
-    <button v-show="startNumAndEedNum.start > 1" @click="$emit('getPageNo', 1)">
+
+    <button
+      v-show="startNumAndEedNum.start > 1"
+      @click="$emit('getPageNo', 1)"
+      :class="{ active: pageNo === 1 }"
+    >
       1
     </button>
     <button v-show="startNumAndEedNum.start > 2">···</button>
@@ -12,6 +17,7 @@
       v-for="(page, index) in startAndEnd"
       :key="index"
       @click="$emit('getPageNo', page)"
+      :class="{ active: pageNo === page }"
     >
       {{ page }}
     </button>
@@ -20,11 +26,13 @@
     <button
       v-show="startNumAndEedNum.end < totalPage"
       @click="$emit('getPageNo', totalPage)"
+      :class="{ active: pageNo === totalPage }"
     >
       {{ totalPage }}
     </button>
+
     <button
-      v-show="pageNo != totalPage"
+      :disabled="pageNo == totalPage"
       @click="$emit('getPageNo', pageNo + 1)"
     >
       下一页
@@ -60,6 +68,7 @@ export default {
           end = continues
         }
         if (end > this.totalPage) {
+          end = this.totalPage
           start = this.totalPage - continues + 1
         }
       }
