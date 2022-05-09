@@ -75,6 +75,9 @@ const routes = [
 const router = new VueRouter({
   // mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savePostation) {
+    return { y: 0 }
+  }
 })
 export default router

@@ -25,10 +25,11 @@
         <div class="InfoWrap">
           <div class="goodsDetail">
             <h3 class="InfoName">
-              Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机
+              {{ goodsInfo.skuInfo.skuName }}
+              <!-- Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机 -->
             </h3>
             <p class="news">
-              推荐选择下方[移动优惠购],手机套餐齐搞定,不用换号,每月还有花费返
+              {{ goodsInfo.skuInfo.skuDesc }}
             </p>
             <div class="priceArea">
               <div class="priceArea1">
@@ -37,7 +38,7 @@
                 </div>
                 <div class="price">
                   <i>¥</i>
-                  <em>5299</em>
+                  <em>{{ goodsInfo.price }}</em>
                   <span>降价通知</span>
                 </div>
                 <div class="remark">
@@ -349,12 +350,20 @@
 <script>
 import ImageList from './ImageList/ImageList'
 import Zoom from './Zoom/Zoom'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Detail',
   components: {
     ImageList,
     Zoom
+  },
+  mounted () {
+    //发送请求获取详情信息
+    this.$store.dispatch('detail/getGoodsInfo', this.$route.params)
+  },
+  computed: {
+    ...mapState({ goodsInfo: state => state.detail.goodsInfo })
   }
 }
 </script>

@@ -1,5 +1,5 @@
-import service from "@/utils/request";
-import mockService from '@/utils/mockRequest';
+import service from "@/utils/request"
+import mockService from '@/utils/mockRequest'
 
 // api管理
 
@@ -16,7 +16,7 @@ export const getCategoryList = () => {
 //     method: 'get'
 //   })
 // }
- 
+
 //获取轮播图数据
 export const reqGetBannerList = () => mockService.get('/banner')
 
@@ -38,8 +38,10 @@ export const reqGetFloorList = () => mockService.get('/floor')
 */
 export const reqGetSearchInfo = params => {
   return service({
-    url: 'list',
+    url: '/list',
     method: 'post',
     data: params
   })
-} 
+}
+
+export const reqGoodsInfo = skuid => service({ url: `/item/${skuid}`, method: 'get' })
