@@ -7,10 +7,15 @@
     <section class="con">
       <!-- 导航路径区域 -->
       <div class="conPoin">
-        <span>手机、数码、通讯</span>
-        <span>手机</span>
-        <span>Apple苹果</span>
-        <span>iphone 6S系类</span>
+        <span v-if="goodsInfo.categoryView">
+          {{ goodsInfo.categoryView.category1Name }}
+        </span>
+        <span v-if="goodsInfo.categoryView">
+          {{ goodsInfo.categoryView.category2Name }}
+        </span>
+        <span v-if="goodsInfo.categoryView">
+          {{ goodsInfo.categoryView.category3Name }}
+        </span>
       </div>
       <!-- 主要内容区域 -->
       <div class="mainCon">
@@ -19,16 +24,16 @@
           <!--放大镜效果-->
           <Zoom />
           <!-- 小图列表 -->
-          <ImageList />
+          <!-- <ImageList /> -->
         </div>
         <!-- 右侧选择区域布局 -->
         <div class="InfoWrap">
           <div class="goodsDetail">
-            <h3 class="InfoName">
+            <h3 class="InfoName" v-if="goodsInfo.skuInfo">
               {{ goodsInfo.skuInfo.skuName }}
               <!-- Apple iPhone 6s（A1700）64G玫瑰金色 移动通信电信4G手机 -->
             </h3>
-            <p class="news">
+            <p class="news" v-if="goodsInfo.skuInfo">
               {{ goodsInfo.skuInfo.skuDesc }}
             </p>
             <div class="priceArea">
@@ -357,6 +362,11 @@ export default {
   components: {
     ImageList,
     Zoom
+  },
+  data () {
+    return {
+
+    }
   },
   mounted () {
     //发送请求获取详情信息
